@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Resized Image</title>
+  </head>
+  <body>
+    <% if (image) { %>
+      <h2>Image Preview</h2>
+      <p><strong>Name:</strong> <%= image.name %></p>
+      <p><strong>Size:</strong> <%= image.width %> x <%= image.height %></p>
+      <img src="<%= image.url %>" alt="Resized Image" />
+    <% } else { %>
+      <p>No image available.</p>
+    <% } %>
+  </body>
+</html>
