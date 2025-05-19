@@ -1,4 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
+
+import fs from 'fs';
+import path from 'path';
+
 // This middleware validates the query parameters for the image processing request
 export const validateQuery = (req: Request, res: Response, next: NextFunction): void => {
   const { filename, width, height } = req.query;
@@ -26,6 +30,12 @@ export const validateQuery = (req: Request, res: Response, next: NextFunction): 
     res
       .status(400)
       .send('⭕️ Extension not allowed. Allowed extensions are: jpg, jpeg, png, webp ⭕️');
+    return;
+  }
+  // This part to check if the file image exists in the assets/full directory
+  const imagePath = path.resolve(`assets/full/${filename}`);
+  if (!fs.existsSync(imagePath)) {
+    res.status(400).send('⭕️ The requested file does not exist in assets/full ⭕️');
     return;
   }
 
